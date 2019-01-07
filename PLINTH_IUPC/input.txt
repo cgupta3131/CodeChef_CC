@@ -1,0 +1,7 @@
+2 4
+2 db
+1 c
+1 2 bcdef
+1 2 bcdsncmslndclsdc
+1 2 bcdskndcksldc
+1 2 bcxyz

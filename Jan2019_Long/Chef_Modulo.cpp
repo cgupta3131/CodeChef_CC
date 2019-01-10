@@ -31,6 +31,12 @@ typedef set<int> seti;
 
 //cin.ignore(numeric_limits<streamsize>::max(), '\n'); -> Clears the input buffer	
 
+/*  If N is even, then value of M is (N/2)-1;
+ 	If N is odd,  then value of M is (N/2)
+
+ 	The possible value of (i<=N) is only one for maximum M to be achieved  
+ 	For (i>N), we can make several combinations!
+  */
 int main()
 {
 	int t;
@@ -38,10 +44,27 @@ int main()
 
 	while(t--)
 	{
-		int n,p;
-		cin >> n >> p;
+		ll N,P;
+		cin >> N >> P;
 
-		int diff = p-n;
+		ll total = 0;
+		ll M;
+
+		if(N == 1 || N == 2)
+		{
+			cout << P*P*P << endl;
+			continue;
+		}
+	
+		if(N%2 == 0)
+			M = (N/2)-1;
+		else
+			M = (N/2);
+
+		total += (P-M)*(P-M);
+		total += (P-N)*( 2*P - M - N);
+
+		cout << total << endl;
 
 
 	}
@@ -52,3 +75,4 @@ int main()
 
 
 
+	

@@ -26,6 +26,15 @@ typedef set<int> seti;
 
 //cin.ignore(numeric_limits<streamsize>::max(), '\n'); -> Clears the input buffer	
 
+
+int gcd_value(int a, int b)
+{
+	if(b == 0)
+		return 0;
+
+	return gcd_value(b,a%b);
+}
+
 int main()
 {
 
@@ -39,7 +48,7 @@ int main()
 	visited[0] = false;
 	visited[1] = false;
 
-	for(ll i=2;i<50005;i++)
+	for(ll i=2;i<1000000;i++)
 	{
 		if(visited[i] == false)
 			continue;
@@ -49,58 +58,84 @@ int main()
 	}
 
 	vector<ll> primes;
-	vector<ll> non_primes;
-	for(ll i=2;i<1000000;i++)
-	{
-		if(visited[i] == true)
+
+	for(ll i=3;i<1000000;i++)
+		if(visited[i])
 			primes.push_back(i);
-		else
-			non_primes.push_back(i);
-	}	
+	//visited[i] == false means that i is not a prime number!
+	//visited[i] == true  means that i is a a prime number!
 
 	while(t--)
 	{
 		int n;
 		cin >> n;
 
-		int *gcd = new int[n];
-		for(int i=0;i<n;i++)
-			gcd[i] = -1;
+		int cur_mul = 2;
+		int j=0;
 
-		gcd[0] = 2;
-		gcd[1] = 3;
-		gcd[2] = 5;
+		vector<ll> output;
 
-		int prime_index = 3;
-		int non_index = 0;
-
-		for(int i=3;i<n;i++)
+		for(int i=1;i<=n;i++)
 		{
-			if(i%3 == 0)
-				gcd[i] = non_primes[non_index++];
+			if(i == n-1 && n%2 == 0)
+				break;
 
-			if(i%3 == 1 && non_primes[non_index]%2 == 1)
-				gcd[i] = non_primes[non_index++];
+			output.push_back(cur_mul * primes[j]);
+			if(i%2 == 1)
+				j++;
+
+			if(i%2 == 0)
+			{
+				if(cur_mul == 2)
+					cur_mul = 3;
+				else
+					cur_mul = 2; 
+			}
 		}
 
-		for(int i=3;i<n;i++)
-			if(gcd[i] == -1)
-				gcd[i] = primes[prime_index++];
 
-		if(gcd[n-2]%2 == 0)
-			gcd[n-2] = primes[prime_index++];
+		if(n%4 == 3)
+		{
+			for(int i=0;i<output.size();i++)
+				cout << output[i] << " ";
+		}
 
-		if(gcd[n-1]%2 == 0 || gcd[n-1]%3 == 0)
-			gcd[n-1] = primes[prime_index++];
+		if(n%4 == 1 && n != 5 )
+		{
+			output[0] *= 7;
+			output[n-1] /= 2;  
+			output[n-1] *= 7; 
 
-		for(int i=0;i<n;i++)
-			cout << gcd[i] << " ";
-		cout << endl;
+			for(int i=0;i<output.size();i++)
+				cout << output[i] << " ";
+		}
 
-		cout << gcd[0]*gcd[n-1] << " ";
+		if(n == 5)
+			cout << 6 << " " << 15 << " " << 35 << " " << 77 << " " << 22 << " ";
 
-		for(int i=0;i<=n-2;i++)
-			cout << gcd[i]*gcd[i+1] << " ";
+
+		if(n%2 == 0)
+		{
+			if(n !=6 && n != 4) //means that cur_mul is 3
+			{
+				output[0] *= primes[j+1];
+				for(int i=0;i<output.size();i++)
+					cout << output[i] << " ";
+				//cout << output[0] << endl;
+
+				cout << 5*primes[j] << " ";
+				cout << 5*primes[j+1] << " ";
+			}
+
+			if(n == 4)
+				cout << 6 << " " << 10 << " " << 35 << " " << 21 << " ";
+			if(n == 6)
+				cout << 6 << " " << 15 << " " << 35 << " " << 77 
+				<< " " << 143 << " " << 26 << " ";
+
+		}
+
+
 		cout << endl;
 
 		

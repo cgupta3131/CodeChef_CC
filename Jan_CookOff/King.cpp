@@ -11,14 +11,10 @@ typedef map<pair<int, int>, int> mappiii;
 typedef map<int, int> mapii;
 typedef map<int, bool> mapib;
 typedef pair<int, int> pii;
+typedef pair<pii,int> ppi;
 typedef pair<long long, long long> pll;
 typedef unordered_set<int> useti;
 typedef set<int> seti;
-
-#define forr(i,a,n) for(ll i = a ; i < n ; i++)
-#define forn(i,n) for(ll i = 0 ; i < n ; i++)
-#define revfor(i,b,a) for(ll i = b ; i >= a ; i--)
-#define revforn(i,n) for(ll i = n ; i >= 0 ; i--)
 #define uset unordered_set
 #define it iterator
 #define mp make_pair
@@ -33,49 +29,31 @@ typedef set<int> seti;
 
 int main()
 {
+	ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-	int n,m;
-	cin >> n >> m;
+	int t;
+	cin >> t;
 
-	ll *first = new ll[n];
-	ll *second = new ll[n];
-
-	ll maxValue = -1*1000000005;
-	int maxIndex = -1;
-	for(int i=0;i<n;i++)
+	while(t--)
 	{
-		cin >> first[i];
-		if(first[i] > maxValue)
+		int r,c,k;
+		cin >> r >> c >> k;
+		int count = 0;
+
+		for(int i=-k;i<=k;i++)
 		{
-			maxValue = first[i];
-			maxIndex = i;
+			for(int j=-k;j<=k;j++)
+			{	
+				//r+i nad c+j
+				if(r+i>=1 && r+i<=8 & c+j>=1 && c+j<=8)
+					count++;
+			}
 		}
+
+		cout << count << endl;
 	}
-
-	ll minValue = 1000000005;
-	int minIndex = -1;
-	for(int i=0;i<m;i++)
-	{
-		cin >> second[i];
-		if(second[i] < minValue)
-		{
-			minValue=second[i];
-			minIndex = i;
-		}
-	}
-
-	for(int i=0;i<n;i++)
-		cout << i << " " << minIndex << endl;
-
-	for(int i=0;i<m;i++)
-	{
-		if(i == minIndex)
-			continue;
-		cout << maxIndex << " " << i << endl;
-	}
-
-
-
 	return 0 ; 
 
 }

@@ -11,14 +11,10 @@ typedef map<pair<int, int>, int> mappiii;
 typedef map<int, int> mapii;
 typedef map<int, bool> mapib;
 typedef pair<int, int> pii;
+typedef pair<pii,int> ppi;
 typedef pair<long long, long long> pll;
 typedef unordered_set<int> useti;
 typedef set<int> seti;
-
-#define forr(i,a,n) for(ll i = a ; i < n ; i++)
-#define forn(i,n) for(ll i = 0 ; i < n ; i++)
-#define revfor(i,b,a) for(ll i = b ; i >= a ; i--)
-#define revforn(i,n) for(ll i = n ; i >= 0 ; i--)
 #define uset unordered_set
 #define it iterator
 #define mp make_pair
@@ -33,49 +29,43 @@ typedef set<int> seti;
 
 int main()
 {
+	ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-	int n,m;
-	cin >> n >> m;
+    int t;
+    cin >> t;
 
-	ll *first = new ll[n];
-	ll *second = new ll[n];
+    while(t--)
+    {
+    	int turns = 0;
+    	string s;
+    	cin >> s;
+    	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+  
+  		int len = s.length();
+  		int cur_pawn = 1;
+  		for(int i=0;i<len;i++)
+  		{
+  			if(s[i] == 'P')
+  			{	
+  				//cout << i << " " << cur_pawn-1 << endl;
+  				//cout << (i-(cur_pawn-1))/2 << endl;
+  				turns += (i-(cur_pawn-1)+1)/2;
+  				cur_pawn++;
+  			}
 
-	ll maxValue = -1*1000000005;
-	int maxIndex = -1;
-	for(int i=0;i<n;i++)
-	{
-		cin >> first[i];
-		if(first[i] > maxValue)
-		{
-			maxValue = first[i];
-			maxIndex = i;
-		}
-	}
-
-	ll minValue = 1000000005;
-	int minIndex = -1;
-	for(int i=0;i<m;i++)
-	{
-		cin >> second[i];
-		if(second[i] < minValue)
-		{
-			minValue=second[i];
-			minIndex = i;
-		}
-	}
-
-	for(int i=0;i<n;i++)
-		cout << i << " " << minIndex << endl;
-
-	for(int i=0;i<m;i++)
-	{
-		if(i == minIndex)
-			continue;
-		cout << maxIndex << " " << i << endl;
-	}
+  		}
 
 
+  		if(turns%2 == 0)
+   		 	cout << "NO" << "\n";
+  		else
+    		cout << "YES" << "\n";
+    }
 
+    
+	
 	return 0 ; 
 
 }
